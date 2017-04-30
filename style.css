@@ -1,0 +1,120 @@
+/*----------Setup-----------*/
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+html {
+}
+
+body {
+	padding: 5em;
+	font-family: Helvetica, Arial, sans-serif;
+	line-height: 1.7;
+	color: #4C4C4C;
+}
+
+/*----------Comments Style-----------*/
+
+.comments {
+	color: #4C4C4C;
+	margin-bottom: 2em;
+	border-bottom: 1px solid #4C4C4C;
+}
+
+.comments p, .comments h2, .comments ul{
+	margin-bottom: 1em;
+}
+
+.comments .nospace {
+	margin-bottom: 0;
+}
+
+.comments ul {
+	margin-left: 3em;
+}
+
+/*----------Game Box-----------*/
+.gamebox {
+	background-color: yellowgreen;
+	width: 600px;
+	height: 300px;
+}
+
+.road {
+	background-color: dimgray;
+	background-image: 
+		linear-gradient(white,white),
+		linear-gradient(white,white),
+		linear-gradient(white,white),
+		linear-gradient(white,white),
+		linear-gradient(white,white),
+		linear-gradient(white,white),
+		linear-gradient(white,white);
+	background-size: 
+		5px 10%,
+		5px 10%,
+		5px 10%,
+		5px 10%,
+		5px 10%,
+		5px 10%,
+		5px 10%;
+	background-position: 
+		50% -20%,
+		50% 0%,
+		50% 20%,
+		50% 40%,
+		50% 60%,
+		50% 80%,
+		50% 100%;
+	background-repeat: no-repeat;
+	position: relative;
+	left: 100px;
+	width: 400px;
+	height: 100%;
+	animation: dashing .5s linear infinite;
+}
+
+@keyframes dashing {
+	0% {background-position: 
+			50% -20%,
+			50% 0%,
+			50% 20%,
+			50% 40%,
+			50% 60%,
+			50% 80%,
+			50% 100%;
+	}
+
+
+
+	100% {
+		background-position:
+			50% 0%,
+			50% 20%,
+			50% 40%,
+			50% 60%,
+			50% 80%,
+			50% 100%,
+			50% 120%;
+	}
+}
+
+/*I figured out how to make the dashed centerline from this
+sample code: https://codepen.io/carpenumidium/pen/oBtja*/
+
+.car {
+	background-color: white;
+	position: absolute;
+	left: 200px;
+	width: 30px;
+	height: 50px;
+}
+
+
+/*----------Objects-----------*/
+
+
+
+
