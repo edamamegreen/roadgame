@@ -47,6 +47,24 @@ var keyListener = document.querySelector('body');
 keyListener.addEventListener('keydown', leftRight, false);
 
 
+var gameWidth = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('width'), radix);
+
+// Trying to create a function that adds a small div
+// into the road, randomly along its width.
+
+function randoShit () {
+	var placeIt = Math.round(Math.random()*gameWidth);
+	var newDiv = document.createElement("div");
+	var objParent = document.querySelector('.road');
+	newDiv.classList.add("cow");
+	newDiv.style.backgroundColor = "lime";
+	newDiv.style.position = "absolute";
+	newDiv.style.width = 50 + "px";
+	newDiv.style.height = 50+ "px";
+	newDiv.style.top = 10 + "px";
+	newDiv.style.left = placeIt + "px";
+	objParent.insertBefore(newDiv, document.querySelector('.car'));
+}
 
 
 
