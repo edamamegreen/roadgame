@@ -21,14 +21,18 @@ var gameState = "play";
 var gameWidth = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('width'), radix);
 
 function makeObstacle () {
-	// An obstacle is created at the top of the road at a random x position.
-	var placeIt = Math.round(Math.random()*gameWidth);
-	var newDiv = document.createElement("div");
-	var objParent = document.querySelector('.road');
-	newDiv.classList.add("cow");
-	newDiv.style.top = 10 + "px";
-	newDiv.style.left = placeIt + "px";
-	objParent.insertBefore(newDiv, document.querySelector('.car'));
+	if (gameState == "play") {
+		// An obstacle is created at the top of the road at a random x position.
+		var placeIt = Math.round(Math.random()*gameWidth);
+		var newDiv = document.createElement("div");
+		var objParent = document.querySelector('.road');
+		newDiv.classList.add("cow");
+		newDiv.style.top = 10 + "px";
+		newDiv.style.left = placeIt + "px";
+		objParent.insertBefore(newDiv, document.querySelector('.car'));
+	} else {
+		return;
+	}
 }
 
 function moveRoad () {
@@ -55,35 +59,82 @@ function moveObstacles () {
 		if (pos < (roadHeight - obstacleHeight)) {
 		// move down a step
 		elem[i].style.top = pos + 2 + "px";
-		console.log(elem[i].style.top);
+		// console.log(elem[i].style.top);
 		} else {
 			// remove from DOM
 			document.querySelector('.road').removeChild(elem[i]);
 			console.log(elem[i]);
 		}	
 	}
+
+	if (gameState == "play") {
 		requestAnimationFrame(moveObstacles);
+	} else {
+		return;
+	}
 }
 
 function checkCollision () {
+	var elem = document.querySelectorAll('.cow');
 
+	for (var i = elem.length - 1; i >= 0; i--) {
+		var obsX1 = parseInt(window.getComputedStyle(elem[i]).getPropertyValue('left'), radix);
+		var obsX2 = obsX1 + parseInt(window.getComputedStyle(elem[i]).getPropertyValue('width'), radix);
+		var obsY1 = parseInt(window.getComputedStyle(elem[i]).getPropertyValue('top'), radix);
+		var obsY2 = obsY1 + parseInt(window.getComputedStyle(elem[i]).getPropertyValue('height'), radix);
+		var carX1 = parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left'), radix);
+		var carX2 = carX1 + parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('width'), radix);
+		var carY1 = parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('top'), radix);
+		var carY2 = carY1 + parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('height'), radix);
+		console.log(obsX1, obsX2, obsY1, obsY2);
+		console.log(carX1, carX2, carY1, carY2);
+		// if (collision = true) {
+		// 	console.log("BAM!!");
+		// }
+	}
 }
 
-function stepGame() {	
+function stepGame() {
+	// createCar();
+	// stepGame();
 	moveObstacles();
 	// Adding the rest of these functions creates an Uncaught RangeError: Maximum call stack size exceeded
 	// It's definitely not a good idea to be using requestAnimationFrame in both stepGame and moveObstacles
 	// and then to call moveObstacles within stepGame.
 	// requestAnimationFrame(moveRoad, moveCar, moveObstacles);
 	// checkCollision();
-	// stepGame();
+	// stepGame();	
 }
 
-if (gameState == "play") {
-	// createCar();
-	stepGame();
+function playGame() {
+	gameState = "play";
+	moveObstacles();
 }
 
+function stopGame() {
+	gameState = 0;
+}
+
+function pausePlay() {
+	if (gameState == "play") {
+		console.log("Stop");
+		stopGame();
+	}
+	else {
+		console.log("Start");
+		playGame();
+	}
+}
+
+function spaceBar(e) {
+		console.log(e.keyCode);
+	if (e.keyCode == 32) {
+		pausePlay();
+	}
+}
+
+var spacebarlistener = document.querySelector('body');
+spacebarlistener.addEventListener('keydown', spaceBar, false);
 
 
 // CHECK FOR COLLISION
@@ -141,15 +192,15 @@ keyListener.addEventListener('keydown', leftRight, false);
 
 
 
+if (gameState == "play") {
+	setInterval(makeObstacle, 2000);
+};
 
 
 
+// I once saw the obstacles all collected at the top of the screen, the moveObstacles
+// appeared to be paused until I focused on the browser again but makeObstacle
+// had been creating new ones while I was away. A whole row of obstacles
+// started moving at once.
 
 
-setInterval(makeObstacle, 2000);
-// When I turn on setInterval, moveObstacles seems to 
-// speed up when its moving more than one element.
-// When multiple obstacles are on the screen,
-// they begin to pause before moving.
-// I'm not sure why. 
-// How can I investigate this phenomenon?
