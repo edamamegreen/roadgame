@@ -60,6 +60,7 @@ function moveObstacles () {
 		// move down a step
 		elem[i].style.top = pos + 2 + "px";
 		// console.log(elem[i].style.top);
+		checkCollision();
 		} else {
 			// remove from DOM
 			document.querySelector('.road').removeChild(elem[i]);
@@ -86,13 +87,21 @@ function checkCollision () {
 		var carX2 = carX1 + parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('width'), radix);
 		var carY1 = parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('top'), radix);
 		var carY2 = carY1 + parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('height'), radix);
-		console.log(obsX1, obsX2, obsY1, obsY2);
-		console.log(carX1, carX2, carY1, carY2);
-		// if (collision = true) {
-		// 	console.log("BAM!!");
-		// }
+		// console.log(obsX1, obsX2, obsY1, obsY2);
+		// console.log(carX1, carX2, carY1, carY2);
+		if (
+			(((obsX1 < carX1) && (carX1 < obsX2)) || 
+			((obsX1 < carX2) && (carX2 < obsX2))) &&
+			(((obsY1 < carY1) && (carY1 < obsY2)) ||
+			((obsY1 < carY2) && (carY2 < obsY2)))
+			) {
+			console.log("BAM!!");
+		}
 	}
 }
+
+// 229 279 130 180
+// 185 215 230 280
 
 function stepGame() {
 	// createCar();
@@ -137,17 +146,6 @@ var spacebarlistener = document.querySelector('body');
 spacebarlistener.addEventListener('keydown', spaceBar, false);
 
 
-// CHECK FOR COLLISION
-
-function checkOverlap() {
-	if ((carLeftX > (obstacle - 50)) && (carLeftX < (obstacle + 50))) {
-		console.log('Obstacle!');
-	}
-	// console.log(carLeftX);
-}
-
-
-
 // MOVE THE CAR
 // get the numeric value of the left position of the car
 
@@ -176,14 +174,12 @@ function leftRight(e) {
 		carLeftString = window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left');
 		calcLeftX();
 		moveCarLeft();
-		checkOverlap();
 	}
 	if (e.keyCode == 39) {
 		// the right arrow has been pressed
 		carLeftString = window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left');
 		calcLeftX();
 		moveCarRight();
-		checkOverlap();
 	}
 }
 
