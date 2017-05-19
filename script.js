@@ -11,7 +11,7 @@ var carLeftX;
 // Play: Create, move objects and check for collisions, listen for esc to move to intro state
 // When a collision occurs animate crash and return to intro state
 
-var gameState = "play";
+var gameState = null;
 
 
 // ADD OBSTACLES
@@ -120,6 +120,7 @@ function stepGame() {
 function playGame() {
     gameState = "play";
     moveObstacles();
+    setInterval(makeObstacle, 1000);
 }
 
 function stopGame() {
@@ -130,9 +131,11 @@ function pausePlay() {
     if (gameState == "play") {
         console.log("Stop");
         stopGame();
+        document.querySelector('.road p').style.visibility = "visible";
     } else {
         console.log("Start");
         playGame();
+        document.querySelector('.road p').style.visibility = "hidden";
     }
 }
 
@@ -188,10 +191,6 @@ var keyListener = document.querySelector('body');
 keyListener.addEventListener('keydown', leftRight, false);
 
 
-
-if (gameState == "play") {
-    setInterval(makeObstacle, 1000);
-};
 
 
 

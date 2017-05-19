@@ -104,6 +104,17 @@ body {
 /*I figured out how to make the dashed centerline from this
 sample code: https://codepen.io/carpenumidium/pen/oBtja*/
 
+.road p {
+	display: inline;
+	color: white;
+	background-color: rgba(255, 255, 255, .25);
+	padding: 5px;
+	position: relative;
+	letter-spacing: .05em;
+	top: 100px;
+	left: 95px;
+}
+
 .car {
 	background-color: white;
 	position: absolute;
