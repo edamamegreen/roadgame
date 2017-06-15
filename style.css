@@ -124,7 +124,7 @@ sample code: https://codepen.io/carpenumidium/pen/oBtja*/
 	height: 50px;
 }
 
-.cow {
+.cow, .bam {
 	background-color: lime;
 	position: absolute;
 	width: 50px;
