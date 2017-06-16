@@ -5,7 +5,8 @@ var gameState = {
     carPositionTop: 0,
     carDamage: 0,
     obstacles: [], //should this be an array or a map?
-    roadSpeed: 10
+    roadSpeed: 10,
+    cowSpeed: 2
 }
 var distIncrement = 10;
 var radix = 10;
@@ -14,13 +15,6 @@ var carLeftString;
 var carLeftX;
 
 var gameWidth = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('width'), radix);
-
-var cow = {
-    posTop: 0,
-    posLeft: 0,
-    speed: 0,
-    direction: 0
-}
 
 // MOVE THE ROAD
 
@@ -71,18 +65,27 @@ keyListener.addEventListener('keydown', leftRight, false);
 
 // OBSTACLES
 
-function makeObstacle() {
-    if (gameState.inPlay == "play") {
-        // An obstacle is created at the top of the road at a random x position.
-        var placeIt = Math.round(Math.random() * gameWidth);
+function makeCow() {
+    this.posLeft = Math.round(Math.random() * gameWidth);
+    this.speed = gameState.cowSpeed;
+    this.direction = 270;
+    this.build = function () {
         var newDiv = document.createElement("div");
-        var objParent = document.querySelector('.road');
+        var objParent = document.querySelector('.road');  
         newDiv.classList.add("cow");
         newDiv.style.top = 10 + "px";
-        newDiv.style.left = placeIt + "px";
-        objParent.insertBefore(newDiv, document.querySelector('.car'));
-    } else {
-        return;
+        newDiv.style.left = this.posLeft + "px";
+        objParent.insertBefore(newDiv, document.querySelector('.car'));  
+    }
+}
+
+function makeObstacle() {
+    if (gameState.inPlay == "play") {       
+    // if (type == "cow") {
+        var cow = new makeCow();
+        gameState.obstacles.push(cow);
+        cow.build();  
+    // }   
     }
 }
 
@@ -192,6 +195,7 @@ function playGame() {
 
 function stopGame() {
     gameState.inPlay = 0;
+
 }
 
 function pausePlay() {
@@ -249,13 +253,3 @@ function printGameState() {
 
 setInterval(stepGame, 20);
 
-// Define the states
-// Listen for spacebar to move into play state
-// Play: Create, move objects and check for collisions, listen for esc to move to intro state
-// When a collision occurs animate crash and return to intro state
-
-
-// I once saw the obstacles all collected at the top of the screen, the moveObstacles
-// appeared to be paused until I focused on the browser again but makeObstacle
-// had been creating new ones while I was away. A whole row of obstacles
-// started moving at once.
