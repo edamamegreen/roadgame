@@ -116,12 +116,9 @@ sample code: https://codepen.io/carpenumidium/pen/oBtja*/
 }
 
 .car {
-	background-color: white;
 	position: absolute;
 	left: 185px;
 	bottom: 20px;
-	width: 30px;
-	height: 50px;
 }
 
 .cow, .bam {
