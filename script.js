@@ -106,6 +106,7 @@ function moveObstacles() {
                 if (checkCollision(obs[i]) !== false) {
                     obs[i].classList.remove("cow");
                     obs[i].classList.add("bam");
+                    obs[i].classList.add("spin");
                     obs[i].direction = Math.cos(pos);
                 };
 

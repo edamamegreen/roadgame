@@ -133,6 +133,22 @@ sample code: https://codepen.io/carpenumidium/pen/oBtja*/
 	/*animation: moving .5s linear 1;*/
 }
 
+.spin {
+	animation: spin .5s linear infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
 @keyframes moving {
 	0% {
 		top: 0%;
