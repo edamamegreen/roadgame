@@ -10,7 +10,7 @@ var gameState = {
 }
 var distIncrement = 10;
 var radix = 10;
-var obstacle = 240;
+// var obstacle = 240; //is this doing anything?
 var carLeftString;
 var carLeftX;
 
@@ -75,7 +75,8 @@ function makeCow() {
         newDiv.classList.add("cow");
         newDiv.style.top = 10 + "px";
         newDiv.style.left = this.posLeft + "px";
-        objParent.insertBefore(newDiv, document.querySelector('.car'));  
+        objParent.insertBefore(newDiv, document.querySelector('.car')); 
+        gameState.obstacles.push(newDiv); 
     }
 }
 
@@ -83,74 +84,60 @@ function makeObstacle() {
     if (gameState.inPlay == "play") {       
     // if (type == "cow") {
         var cow = new makeCow();
-        gameState.obstacles.push(cow);
         cow.build();  
     // }   
     }
 }
 
-function bashObstacle(pos) {
-    var cowX = Math.cos(pos);
-    var elem = document.querySelector('.bam');
-    var cowTop = parseInt(window.getComputedStyle(elem).getPropertyValue('top'), radix);
-    var cowBottom = cowTop + parseInt(window.getComputedStyle(elem).getPropertyValue('height'), radix);
-    var cowLeft = parseInt(window.getComputedStyle(elem).getPropertyValue('left'), radix);
-    var cowRight = cowLeft + parseInt(window.getComputedStyle(elem).getPropertyValue('width'), radix);
-    var roadTop = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('top'), radix);
-    var roadBottom = roadTop + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('height'), radix);
-    var roadLeft = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('left'), radix);
-    var roadRight = roadLeft + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('width'), radix);
-    console.log("cos" + cowX);
-
-        elem.style.top = cowTop - 100 + "px";
-        elem.style.left = cowLeft + (100* cowX) + "px";
-        console.log(cowTop + " " + cowLeft);
-
-    // if (((cowBottom < roadTop) ||
-    //     (cowLeft > roadRight) ||
-    //     (cowRight < roadLeft) ||
-    //     (cowTop < roadBottom))) {     
-    //     console.log(cowBottom + "<"+ roadTop);
-    //     console.log(cowLeft + ">"+ roadRight);
-    //     console.log(cowRight + "<"+ roadLeft);
-    //     console.log(cowTop + ">"+ roadBottom);
-    //     document.querySelector('.road').removeChild(elem); 
-    // }
-    // else {
-
-    // }
-
-}
-
 function moveObstacles() {
-    // The obstacle moves down the road and disappears when it reaches the
-    // bottom of the road.
-    // I chose to do this in JS instead of CSS animate because I want
-    // to be able to remove the element when it finishes moving.
-    var elem = document.querySelectorAll('.cow');
     var roadHeight = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('height'), radix);
+    var obs = gameState.obstacles;
+    for (var i = obs.length - 1; i >= 0; i--) {
 
-    for (var i = elem.length - 1; i >= 0; i--) {
+        var obstacleHeight = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('height'), radix);
+        var pos = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('top'), radix);
 
-        var obstacleHeight = parseInt(window.getComputedStyle(elem[i]).getPropertyValue('height'), radix);
-        var pos = parseInt(window.getComputedStyle(elem[i]).getPropertyValue('top'), radix);
+        if (obs[i].classList.contains('cow') == true) {
 
-        if (pos < (roadHeight - obstacleHeight)) {
-            // move down a step
-            elem[i].style.top = pos + 2 + "px";
-            // console.log(elem[i].style.top);
-            if (checkCollision(elem[i]) !== false) {
-                // console.log((180/Math.PI)*checkCollision(elem[i]));
-                // document.querySelector('.road').removeChild(elem[i]);
-                elem[i].classList.remove("cow");
-                elem[i].classList.add("bam");
-                bashObstacle(checkCollision(elem[i]));
-            };
+            if (pos < (roadHeight - obstacleHeight)) {
+                // move down a step
+                obs[i].style.top = pos + 2 + "px";
 
-        } else {
-            // remove from DOM
-            document.querySelector('.road').removeChild(elem[i]);
-            console.log(elem[i]);
+                if (checkCollision(obs[i]) !== false) {
+                    obs[i].classList.remove("cow");
+                    obs[i].classList.add("bam");
+                    obs[i].direction = Math.cos(pos);
+                };
+
+            } else {
+                // remove from DOM
+                obs[i].remove();
+            }
+        }
+
+        if (obs[i].classList.contains('bam') == true) {
+   
+            var cowTop = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('top'), radix);
+            var cowBottom = cowTop + parseInt(window.getComputedStyle(obs[i]).getPropertyValue('height'), radix);
+            var cowLeft = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('left'), radix);
+            var cowRight = cowLeft + parseInt(window.getComputedStyle(obs[i]).getPropertyValue('width'), radix);
+            var roadTop = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('top'), radix);
+            var roadBottom = roadTop + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('height'), radix);
+            var roadLeft = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('left'), radix);
+            var roadRight = roadLeft + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('width'), radix);
+
+            obs[i].style.top = cowTop - 10 + "px";
+            obs[i].style.left = cowLeft + (10 * obs[i].direction) + "px";
+            console.log(obs[i] + "Top: " + cowTop + "Left: " + cowLeft + "Dir: " + obs[i].direction);
+
+            if (((cowBottom < roadTop) ||
+                (cowLeft > roadRight) ||
+                (cowRight < roadLeft) ||
+                (cowTop > roadBottom))) {                
+                    
+                    obs[i].remove(); 
+            
+            }
         }
     }
 }
@@ -223,20 +210,10 @@ spacebarlistener.addEventListener('keydown', spaceBar, false);
 
 // STEP GAME
 
-
-
-
 function stepGame() {
     if (gameState.inPlay == "play") {
-        requestAnimationFrame(moveObstacles, bashObstacle);
+        requestAnimationFrame(moveObstacles);
     }
-
-    // Adding the rest of these functions creates an Uncaught RangeError: Maximum call stack size exceeded
-    // It's definitely not a good idea to be using requestAnimationFrame in both stepGame and moveObstacles
-    // and then to call moveObstacles within stepGame.
-    // requestAnimationFrame(moveRoad, moveCar, moveObstacles);
-    // checkCollision();
-    // stepGame();  
 }
 
 

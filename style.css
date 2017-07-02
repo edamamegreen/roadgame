@@ -121,6 +121,10 @@ sample code: https://codepen.io/carpenumidium/pen/oBtja*/
 	bottom: 20px;
 }
 
+.car > img {
+	height: 110px;
+}
+
 .cow, .bam {
 	background-color: lime;
 	position: absolute;
