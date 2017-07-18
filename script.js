@@ -35,11 +35,17 @@ function calcLeftX() {
 // move the car by incrementing or decrementing the car's left position
 
 function moveCarLeft() {
-    document.querySelector('.car').style.left = (carLeftX - distIncrement) + "px";
+    if (parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left'), radix) > 1) {
+        document.querySelector('.car').style.left = (carLeftX - distIncrement) + "px";
+    }
 }
 
 function moveCarRight() {
-    document.querySelector('.car').style.left = (carLeftX + distIncrement) + "px";
+    if ((parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left'), radix)
+         + parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('width'), radix)) < 400) {
+
+        document.querySelector('.car').style.left = (carLeftX + distIncrement) + "px";
+    }
 }
 
 // has a left/right arrow key been pressed? then move the car
