@@ -36,12 +36,16 @@ function calcLeftX() {
 // move the car by incrementing or decrementing the car's left position
 
 function moveCarLeft() {
+    carLeftString = window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left');
+    calcLeftX();
     if (parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left'), radix) > 1) {
         document.querySelector('.car').style.left = (carLeftX - distIncrement) + "px";
     }
 }
 
 function moveCarRight() {
+    carLeftString = window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left');
+    calcLeftX();
     if ((parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left'), radix)
          + parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('width'), radix)) < 400) {
 
@@ -50,25 +54,26 @@ function moveCarRight() {
 }
 
 // has a left/right arrow key been pressed? then move the car
+// learned from: http://nokarma.org/2011/02/27/javascript-game-development-keyboard-input/index.html
 
-function leftRight(e) {
-
-    if (e.keyCode == 37) {
-        // the left arrow has been pressed
-        carLeftString = window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left');
-        calcLeftX();
-        moveCarLeft();
-    }
-    if (e.keyCode == 39) {
-        // the right arrow has been pressed
-        carLeftString = window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left');
-        calcLeftX();
-        moveCarRight();
+var Key = {
+    _pressed: {},
+    LEFT: 37,
+    RIGHT: 39,
+    isDown: function(keyCode) {
+        return this._pressed[keyCode];
+    },
+    onKeydown: function(e) {
+        this._pressed[e.keyCode] = true;
+    },
+    onKeyup: function(e) {
+        delete this._pressed[e.keyCode];
     }
 }
 
 var keyListener = document.querySelector('body');
-keyListener.addEventListener('keydown', leftRight, false);
+keyListener.addEventListener('keyup', function(e) {Key.onKeyup(e);}, false);
+keyListener.addEventListener('keydown', function(e) {Key.onKeydown(e);}, false);
 
 
 // OBSTACLES
@@ -225,6 +230,14 @@ spacebarlistener.addEventListener('keydown', spaceBar, false);
 function stepGame() {
     if (gameState.inPlay == "play") {
         requestAnimationFrame(moveObstacles);
+    }
+
+    if (Key.isDown(Key.LEFT)) {
+        moveCarLeft();
+    }
+
+    if (Key.isDown(Key.RIGHT)) {
+        moveCarRight();
     }
 }
 
