@@ -42,6 +42,17 @@ body {
 	height: 500px;
 }
 
+.points-holder {
+	background-color: black;
+	margin: 0 auto;
+	padding-left: 10px;
+}
+
+.points, .points-label {
+	display: inline;
+	color: white;
+}
+
 .road {
 	background-color: dimgray;
 	background-image: 
@@ -72,7 +83,7 @@ body {
 	position: relative;
 	left: 100px;
 	width: 400px;
-	height: 100%;
+	height: 473px;
 	animation: dashing .5s linear infinite;
 }
 

@@ -6,7 +6,8 @@ var gameState = {
     carDamage: 0,
     obstacles: [], //should this be an array or a map?
     roadSpeed: 10,
-    cowSpeed: 2
+    cowSpeed: 2,
+    points: 0
 }
 var distIncrement = 10;
 var radix = 10;
@@ -108,6 +109,8 @@ function moveObstacles() {
                     obs[i].classList.add("bam");
                     obs[i].classList.add("spin");
                     obs[i].direction = Math.cos(pos);
+                    gameState.points = 1 + gameState.points;
+                    document.querySelector('.points').innerHTML = gameState.points;
                 };
 
             } else {
