@@ -117,7 +117,7 @@ function moveObstacles() {
                     obs[i].classList.add("bam");
                     obs[i].classList.add("spin");
                     obs[i].direction = Math.cos(pos);
-                    gameState.points = 1 + gameState.points;
+                    gameState.points = 100 + gameState.points;
                     document.querySelector('.points').innerHTML = gameState.points;
                 };
 
