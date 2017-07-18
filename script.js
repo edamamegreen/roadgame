@@ -6,11 +6,12 @@ var gameState = {
     carDamage: 0,
     obstacles: [], //should this be an array or a map?
     roadSpeed: 10,
-    cowSpeed: 2,
+    bananaSpeed: 2,
     points: 0
 }
 var distIncrement = 10;
 var radix = 10;
+var obstacleWidth = 30;
 // var obstacle = 240; //is this doing anything?
 var carLeftString;
 var carLeftX;
@@ -72,14 +73,15 @@ keyListener.addEventListener('keydown', leftRight, false);
 
 // OBSTACLES
 
-function makeCow() {
+function makeBanana() {
     this.posLeft = Math.round(Math.random() * gameWidth);
-    this.speed = gameState.cowSpeed;
+    this.speed = gameState.bananaSpeed;
     this.direction = 270;
     this.build = function () {
-        var newDiv = document.createElement("div");
+        var newDiv = document.createElement("img");
         var objParent = document.querySelector('.road');  
-        newDiv.classList.add("cow");
+        newDiv.classList.add("banana");
+        newDiv.src = "banana.svg";
         newDiv.style.top = 10 + "px";
         newDiv.style.left = this.posLeft + "px";
         objParent.insertBefore(newDiv, document.querySelector('.car')); 
@@ -89,9 +91,9 @@ function makeCow() {
 
 function makeObstacle() {
     if (gameState.inPlay == "play") {       
-    // if (type == "cow") {
-        var cow = new makeCow();
-        cow.build();  
+    // if (type == "banana") {
+        var banana = new makeBanana();
+        banana.build();  
     // }   
     }
 }
@@ -104,14 +106,14 @@ function moveObstacles() {
         var obstacleHeight = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('height'), radix);
         var pos = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('top'), radix);
 
-        if (obs[i].classList.contains('cow') == true) {
+        if (obs[i].classList.contains('banana') == true) {
 
             if (pos < (roadHeight - obstacleHeight)) {
                 // move down a step
                 obs[i].style.top = pos + 2 + "px";
 
                 if (checkCollision(obs[i]) !== false) {
-                    obs[i].classList.remove("cow");
+                    obs[i].classList.remove("banana");
                     obs[i].classList.add("bam");
                     obs[i].classList.add("spin");
                     obs[i].direction = Math.cos(pos);
@@ -127,23 +129,23 @@ function moveObstacles() {
 
         if (obs[i].classList.contains('bam') == true) {
    
-            var cowTop = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('top'), radix);
-            var cowBottom = cowTop + parseInt(window.getComputedStyle(obs[i]).getPropertyValue('height'), radix);
-            var cowLeft = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('left'), radix);
-            var cowRight = cowLeft + parseInt(window.getComputedStyle(obs[i]).getPropertyValue('width'), radix);
+            var bananaTop = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('top'), radix);
+            var bananaBottom = bananaTop + parseInt(window.getComputedStyle(obs[i]).getPropertyValue('height'), radix);
+            var bananaLeft = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('left'), radix);
+            var bananaRight = bananaLeft + parseInt(window.getComputedStyle(obs[i]).getPropertyValue('width'), radix);
             var roadTop = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('top'), radix);
             var roadBottom = roadTop + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('height'), radix);
             var roadLeft = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('left'), radix);
             var roadRight = roadLeft + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('width'), radix);
 
-            obs[i].style.top = cowTop - 10 + "px";
-            obs[i].style.left = cowLeft + (10 * obs[i].direction) + "px";
-            console.log(obs[i] + "Top: " + cowTop + "Left: " + cowLeft + "Dir: " + obs[i].direction);
+            obs[i].style.top = bananaTop - 10 + "px";
+            obs[i].style.left = bananaLeft + (10 * obs[i].direction) + "px";
+            console.log(obs[i] + "Top: " + bananaTop + "Left: " + bananaLeft + "Dir: " + obs[i].direction);
 
-            if (((cowBottom < roadTop) ||
-                (cowLeft > roadRight) ||
-                (cowRight < roadLeft) ||
-                (cowTop > roadBottom))) {                
+            if (((bananaBottom < roadTop) ||
+                (bananaLeft > roadRight) ||
+                (bananaRight < roadLeft) ||
+                (bananaTop > roadBottom))) {                
                     
                     obs[i].remove(); 
             
@@ -165,7 +167,7 @@ function checkCollision(elem) {
     // console.log(obsX1, obsX2, obsY1, obsY2);
     // console.log(carX1, carX2, carY1, carY2);
 
-    var collisionAngle = Math.atan2(25, ((obsX1 + ((obsX2 - obsX1)/2)) - (carX1 + ((carX2 - carX1)/2))));
+    var collisionAngle = Math.atan2((obstacleWidth / 2), ((obsX1 + ((obsX2 - obsX1)/2)) - (carX1 + ((carX2 - carX1)/2))));
 
     if (
         (((obsX1 < carX1) && (carX1 < obsX2)) ||

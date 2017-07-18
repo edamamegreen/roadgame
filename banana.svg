@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>Banana</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Banana" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g>
+            <rect id="Rectangle" fill="#EBC820" x="7" y="13" width="3" height="1"></rect>
+            <g id="Group" transform="translate(-1.000000, -1.000000)">
+                <polygon id="Path-2" fill="#F8E81C" points="2.98126221 0.0141601563 2.98126221 2.98704164 2 2.98704164 2 4.0177002 0.983093262 4.0177002 0.983093262 5.00512695 0.983093262 6.03588867 0.983093262 9.03076172 2 9.03076172 2 9.93395996 2.98126221 9.93395996 2.98126221 10.9414063 2.98126221 11.9325243 4.0612793 11.9325243 4.0612793 12.9128418 4.97875977 12.9128418 4.97875977 14.0345459 8.01940918 14.0345459 8.01940918 15.0397949 11.0321045 15.0397949 11.0321045 14.0345459 13.0201416 14.0345459 13.0201416 12.9128418 15.015625 12.9128418 15.015625 10.9414063 13.9818115 10.9414063 13.9818115 9.93395996 11.8479004 9.93395996 9.05529785 9.93395996 9.05529785 9.03076172 8.01940918 9.03076172 8.01940918 8.03942871 6.98016357 8.03942871 6.98016357 6.03588867 6.00396729 6.03588867 6.00396729 4.0177002 6.00396729 2.98704164 4.97875977 2.98704164 4.97875977 0.0141601563"></polygon>
+                <rect id="Rectangle" fill="#D98824" x="3" y="1" width="2" height="2"></rect>
+                <rect id="Rectangle" fill="#EBC820" x="2" y="9" width="1" height="1"></rect>
+                <rect id="Rectangle" fill="#EBC820" x="1" y="4" width="1" height="5"></rect>
+                <rect id="Rectangle" fill="#B2B2B2" x="1" y="9" width="1" height="1"></rect>
+                <rect id="Rectangle" fill="#B2B2B2" x="2" y="10" width="1" height="2"></rect>
+                <rect id="Rectangle" fill="#B2B2B2" x="3" y="12" width="1" height="1"></rect>
+                <rect id="Rectangle" fill="#EBC820" x="3" y="10" width="1" height="2"></rect>
+                <rect id="Rectangle" fill="#EBC820" x="4" y="12" width="1" height="1"></rect>
+                <rect id="Rectangle" fill="#EBC820" x="5" y="13" width="3" height="1"></rect>
+                <rect id="Rectangle" fill="#EBC820" x="11" y="13" width="2" height="1"></rect>
+                <rect id="Rectangle" fill="#EBC820" x="13" y="12" width="2" height="1"></rect>
+                <rect id="Rectangle" fill="#8B0028" x="14" y="10" width="1" height="1"></rect>
+                <rect id="Rectangle" fill="#EBC820" x="2" y="3" width="1" height="1"></rect>
+            </g>
+            <rect id="Rectangle" fill="#B2B2B2" x="3" y="12" width="1" height="1"></rect>
+            <rect id="Rectangle" fill="#B2B2B2" x="4" y="13" width="3" height="1"></rect>
+            <rect id="Rectangle" fill="#B2B2B2" x="7" y="14" width="3" height="1"></rect>
+            <rect id="Rectangle" fill="#B2B2B2" x="10" y="13" width="2" height="1"></rect>
+        </g>
+    </g>
+</svg>
