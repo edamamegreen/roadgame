@@ -129,6 +129,7 @@ function moveObstacles() {
             } else {
                 // remove from DOM
                 obs[i].remove();
+                obs.splice(i, 1);
             }
         }
 
@@ -142,17 +143,17 @@ function moveObstacles() {
             var roadBottom = roadTop + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('height'), radix);
             var roadLeft = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('left'), radix);
             var roadRight = roadLeft + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('width'), radix);
-
             obs[i].style.top = bananaTop - 10 + "px";
             obs[i].style.left = bananaLeft + (10 * obs[i].direction) + "px";
-            console.log(obs[i] + "Top: " + bananaTop + "Left: " + bananaLeft + "Dir: " + obs[i].direction);
+            console.log("Obstacle: " + i + " Top: " + bananaTop + " Left: " + bananaLeft + " Dir: " + obs[i].direction);
 
             if (((bananaBottom < roadTop) ||
                 (bananaLeft > roadRight) ||
                 (bananaRight < roadLeft) ||
                 (bananaTop > roadBottom))) {                
                     
-                    obs[i].remove(); 
+                    obs[i].remove();
+                    obs.splice(i, 1); 
             
             }
         }
