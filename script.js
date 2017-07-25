@@ -176,10 +176,12 @@ function checkCollision(elem) {
     var collisionAngle = Math.atan2((obstacleWidth / 2), ((obsX1 + ((obsX2 - obsX1)/2)) - (carX1 + ((carX2 - carX1)/2))));
 
     if (
-        (((obsX1 < carX1) && (carX1 < obsX2)) ||
-            ((obsX1 < carX2) && (carX2 < obsX2))) &&
-        (((obsY1 < carY1) && (carY1 < obsY2)) ||
-            ((obsY1 < carY2) && (carY2 < obsY2)))
+        (((obsX1 < carX1) && (obsX2 > carX1)) ||
+         ((obsX1 > carX1) && (obsX2 < carX2)) ||
+         ((obsX1 < carX2) && (obsX2 > carX2))) &&
+        (((obsY1 < carY1) && (obsY2 > carY1)) ||
+         ((obsY1 > carY1) && (obsY2 < carY2)) ||
+         ((obsY1 < carY2) && (obsY2 > carY2)))
     ) {
         // console.log(collisionAngle);
         return collisionAngle;
