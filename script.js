@@ -81,7 +81,7 @@ keyListener.addEventListener('keydown', function(e) {Key.onKeydown(e);}, false);
 function makeBanana() {
     this.posLeft = Math.round(Math.random() * gameWidth);
     this.speed = gameState.bananaSpeed;
-    this.direction = 270;
+    this.dx = 0;
     this.build = function () {
         var newDiv = document.createElement("img");
         var objParent = document.querySelector('.road');  
@@ -109,21 +109,24 @@ function moveObstacles() {
     for (var i = obs.length - 1; i >= 0; i--) {
 
         var obstacleHeight = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('height'), radix);
-        var pos = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('top'), radix);
+        var posY = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('top'), radix);
 
         if (obs[i].classList.contains('banana') == true) {
 
-            if (pos < (roadHeight - obstacleHeight)) {
+            if (posY < (roadHeight - obstacleHeight)) {
                 // move down a step
-                obs[i].style.top = pos + 2 + "px";
+                obs[i].style.top = posY + 2 + "px";
+
 
                 if (checkCollision(obs[i]) !== false) {
+                    console.log("collision angle: " + checkCollision(obs[i]));
                     obs[i].classList.remove("banana");
                     obs[i].classList.add("bam");
                     obs[i].classList.add("spin");
-                    obs[i].direction = Math.cos(pos);
+                    obs[i].dx = checkCollision(obs[i]);
                     gameState.points = 100 + gameState.points;
                     document.querySelector('.points').innerHTML = gameState.points;
+                    console.log(obs[i].dx);
                 };
 
             } else {
@@ -143,9 +146,10 @@ function moveObstacles() {
             var roadBottom = roadTop + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('height'), radix);
             var roadLeft = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('left'), radix);
             var roadRight = roadLeft + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('width'), radix);
+
             obs[i].style.top = bananaTop - 10 + "px";
-            obs[i].style.left = bananaLeft + (10 * obs[i].direction) + "px";
-            console.log("Obstacle: " + i + " Top: " + bananaTop + " Left: " + bananaLeft + " Dir: " + obs[i].direction);
+            obs[i].style.left = bananaLeft + (.5 * obs[i].dx) + "px";
+            // console.log("Obstacle: " + i + " Top: " + bananaTop + " Left: " + bananaLeft + " Dir: " + obs[i].dx);
 
             if (((bananaBottom < roadTop) ||
                 (bananaLeft > roadRight) ||
@@ -167,13 +171,13 @@ function checkCollision(elem) {
     var obsY1 = parseInt(window.getComputedStyle(elem).getPropertyValue('top'), radix);
     var obsY2 = obsY1 + parseInt(window.getComputedStyle(elem).getPropertyValue('height'), radix);
     var carX1 = parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left'), radix);
-    var carX2 = carX1 + parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('width'), radix);
+    var carWidth = parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('width'), radix);
+    var carX2 = carX1 + carWidth;
     var carY1 = parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('top'), radix);
     var carY2 = carY1 + parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('height'), radix);
     // console.log(obsX1, obsX2, obsY1, obsY2);
     // console.log(carX1, carX2, carY1, carY2);
-
-    var collisionAngle = Math.atan2((obstacleWidth / 2), ((obsX1 + ((obsX2 - obsX1)/2)) - (carX1 + ((carX2 - carX1)/2))));
+    var collisiondX = (obsX1 - (carX1 + (1 / 2 * carWidth)));
 
     if (
         (((obsX1 < carX1) && (obsX2 > carX1)) ||
@@ -183,8 +187,7 @@ function checkCollision(elem) {
          ((obsY1 > carY1) && (obsY2 < carY2)) ||
          ((obsY1 < carY2) && (obsY2 > carY2)))
     ) {
-        // console.log(collisionAngle);
-        return collisionAngle;
+        return collisiondX;
     } else {
         return false;
     }
