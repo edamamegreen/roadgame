@@ -145,16 +145,16 @@ function moveObstacles() {
             var roadTop = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('top'), radix);
             var roadBottom = roadTop + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('height'), radix);
             var roadLeft = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('left'), radix);
-            var roadRight = roadLeft + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('width'), radix);
+            var roadRight = roadLeft + parseInt(window.getComputedStyle(document.querySelector('.camera')).getPropertyValue('width'), radix);
 
             obs[i].style.top = bananaTop - 10 + "px";
             obs[i].style.left = bananaLeft + (.5 * obs[i].dx) + "px";
             // console.log("Obstacle: " + i + " Top: " + bananaTop + " Left: " + bananaLeft + " Dir: " + obs[i].dx);
 
-            if (((bananaBottom < roadTop) ||
-                (bananaLeft > roadRight) ||
-                (bananaRight < roadLeft) ||
-                (bananaTop > roadBottom))) {                
+            if (((bananaTop < 0) ||
+                (bananaLeft < (-roadLeft)) ||
+                (bananaRight > roadRight) ||
+                (bananaBottom > roadBottom))) {
                     
                     obs[i].remove();
                     obs.splice(i, 1); 

@@ -37,7 +37,6 @@ body {
 
 /*----------Game Box-----------*/
 .gamebox {
-	background-color: yellowgreen;
 	width: 600px;
 	height: 500px;
 }
@@ -51,6 +50,10 @@ body {
 .points, .points-label {
 	display: inline;
 	color: white;
+}
+
+.camera {
+	background-color: yellowgreen;	
 }
 
 .road {
