@@ -24,7 +24,7 @@ function moveRoad() {
 
 }
 
-// Helper function to get an element's exact position
+// Helper function to get an element's exact position (from https://www.kirupa.com/html5/get_element_position_using_javascript.htm)
 function getPosition(el) {
     var xPos = 0;
     var yPos = 0;
