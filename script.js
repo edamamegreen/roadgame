@@ -24,17 +24,52 @@ function moveRoad() {
 
 }
 
+// Helper function to get an element's exact position
+function getPosition(el) {
+    var xPos = 0;
+    var yPos = 0;
+
+    while (el) {
+        if (el.tagName == "BODY") {
+            // deal with browser quirks with body/window/document and page scroll
+            var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+            var yScroll = el.scrollTop || document.documentElement.scrollTop;
+
+            xPos += (el.offsetLeft - xScroll + el.clientLeft);
+            yPos += (el.offsetTop - yScroll + el.clientTop);
+        } else {
+            // for all other non-BODY elements
+            xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+            yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+        }
+
+        el = el.offsetParent;
+    }
+    return {
+        x: xPos,
+        y: yPos
+    };
+}
+
+// deal with the page getting resized or scrolled
+window.addEventListener("scroll", updatePosition, false);
+window.addEventListener("resize", updatePosition, false);
+
+function updatePosition() {
+    // add your code to update the position when your browser
+    // is resized or scrolled
+}
+
 
 // MOVE THE CAR
-// get the numeric value of the left position of the car
 
+// get the numeric value of the left position of the car
 function calcLeftX() {
     carLeftX = parseInt(carLeftString, radix);
     // console.log(carLeftX);
 }
 
 // move the car by incrementing or decrementing the car's left position
-
 function moveCarLeft() {
     carLeftString = window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left');
     calcLeftX();
@@ -55,7 +90,6 @@ function moveCarRight() {
 
 // has a left/right arrow key been pressed? then move the car
 // learned from: http://nokarma.org/2011/02/27/javascript-game-development-keyboard-input/index.html
-
 var Key = {
     _pressed: {},
     LEFT: 37,
@@ -142,10 +176,10 @@ function moveObstacles() {
             var bananaBottom = bananaTop + parseInt(window.getComputedStyle(obs[i]).getPropertyValue('height'), radix);
             var bananaLeft = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('left'), radix);
             var bananaRight = bananaLeft + parseInt(window.getComputedStyle(obs[i]).getPropertyValue('width'), radix);
-            var roadTop = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('top'), radix);
-            var roadBottom = roadTop + parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('height'), radix);
-            var roadLeft = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('left'), radix);
-            var roadRight = roadLeft + parseInt(window.getComputedStyle(document.querySelector('.camera')).getPropertyValue('width'), radix);
+            var roadTop = getPosition(document.querySelector('.camera')).y;
+            var roadBottom = roadTop + parseInt(window.getComputedStyle(document.querySelector('.camera')).getPropertyValue('height'), radix);
+            var roadLeft = getPosition(document.querySelector('.camera')).x;
+            var roadRight = parseInt(window.getComputedStyle(document.querySelector('.camera')).getPropertyValue('width'), radix) - 100;
 
             obs[i].style.top = bananaTop - 10 + "px";
             obs[i].style.left = bananaLeft + (.5 * obs[i].dx) + "px";
