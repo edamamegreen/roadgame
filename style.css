@@ -10,8 +10,8 @@ html {
 
 body {
 	font-family: Helvetica, Arial, sans-serif;
-	line-height: 1.7;
-	color: #4C4C4C;
+	font-size: 1.3rem;
+	line-height: 1.7rem;
 	color: hsla(0, 0%, 90%, 1);
 	background-color: hsla(0, 1%, 15%, 1);
 }
@@ -70,6 +70,14 @@ h2 {
 .points, .points-label {
 	display: inline;
 	color: hsla(0, 0%, 90%, 1);
+}
+
+.points-label {
+	font-weight: lighter;
+}
+
+.points-holder > p{
+	letter-spacing: .05rem;
 }
 
 .camera {
@@ -189,6 +197,10 @@ sample code: https://codepen.io/carpenumidium/pen/oBtja*/
 	100% {
 		top: 100%;
 	}	
+}
+
+.road > p {
+	font-size: 1.2rem;
 }
 
 .controls {
