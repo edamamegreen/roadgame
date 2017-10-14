@@ -16,6 +16,21 @@ body {
 	background-color: hsla(0, 1%, 15%, 1);
 }
 
+.title {
+	margin: 0 auto;
+	max-width: 600px;
+	padding: 1rem 0;
+}
+
+h2 {
+	font-size: 2rem;
+	text-transform: uppercase;
+	text-align: center;
+	line-height: 3rem;
+	border: 2px dashed hsla(0, 0%, 90%, 1);
+}
+
+
 /*----------Comments Style-----------*/
 
 .comments {
