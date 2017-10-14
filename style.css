@@ -13,13 +13,15 @@ body {
 	font-family: Helvetica, Arial, sans-serif;
 	line-height: 1.7;
 	color: #4C4C4C;
+	color: hsla(0, 0%, 90%, 1);
+	background-color: hsla(0, 1%, 15%, 1);
 }
 
 /*----------Comments Style-----------*/
 
 .comments {
-	color: #4C4C4C;
 	margin-bottom: 2em;
+	color: hsla(0, 0%, 90%, 1);
 	border-bottom: 1px solid #4C4C4C;
 }
 
@@ -42,14 +44,14 @@ body {
 }
 
 .points-holder {
-	background-color: black;
 	margin: 0 auto;
+	background-color: hsla(0, 1%, 15%, 1);
 	padding-left: 10px;
 }
 
 .points, .points-label {
 	display: inline;
-	color: white;
+	color: hsla(0, 0%, 90%, 1);
 }
 
 .camera {
