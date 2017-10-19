@@ -273,6 +273,7 @@ spacebarlistener.addEventListener('keydown', spaceBar, false);
 function stepGame() {
     if (gameState.inPlay == "play") {
         requestAnimationFrame(moveObstacles);
+        moveDash();
     }
 
     if (Key.isDown(Key.LEFT)) {
@@ -282,7 +283,6 @@ function stepGame() {
     if (Key.isDown(Key.RIGHT)) {
         moveCarRight();
     }
-    moveDash();
 }
 
 
