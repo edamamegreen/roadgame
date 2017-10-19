@@ -5,7 +5,7 @@ var gameState = {
     carPositionTop: 0,
     carDamage: 0,
     obstacles: [], //should this be an array or a map?
-    roadSpeed: 10,
+    roadSpeed: 2,
     bananaSpeed: 2,
     points: 0
 }
@@ -23,7 +23,7 @@ var gameWidth = parseInt(window.getComputedStyle(document.querySelector('.road')
 var offset = 0;
 
 function moveDash() {
-    offset -= 1;
+    offset -= gameState.roadSpeed;
     document.querySelector('line').style.strokeDashoffset = offset;
 }
 
@@ -152,7 +152,7 @@ function moveObstacles() {
 
             if (posY < (roadHeight - obstacleHeight)) {
                 // move down a step
-                obs[i].style.top = posY + 2 + "px";
+                obs[i].style.top = posY + gameState.bananaSpeed + "px";
 
 
                 if (checkCollision(obs[i]) !== false) {
