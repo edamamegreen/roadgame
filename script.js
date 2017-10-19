@@ -136,7 +136,7 @@ function makeObstacle() {
 }
 
 function moveObstacles() {
-    var roadHeight = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('height'), radix);
+    var roadHeight = getStyle(".road","height");
     var obs = gameState.obstacles;
     for (var i = obs.length - 1; i >= 0; i--) {
 
@@ -175,9 +175,9 @@ function moveObstacles() {
             var bananaLeft = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('left'), radix);
             var bananaRight = bananaLeft + parseInt(window.getComputedStyle(obs[i]).getPropertyValue('width'), radix);
             var roadTop = getPosition(document.querySelector('.camera')).y;
-            var roadBottom = roadTop + parseInt(window.getComputedStyle(document.querySelector('.camera')).getPropertyValue('height'), radix);
+            var roadBottom = roadTop + getStyle(".camera","height");
             var roadLeft = getPosition(document.querySelector('.camera')).x;
-            var roadRight = parseInt(window.getComputedStyle(document.querySelector('.camera')).getPropertyValue('width'), radix) - 100;
+            var roadRight = getStyle(".camera","width") - 100;
 
             obs[i].style.top = bananaTop - 10 + "px";
             obs[i].style.left = bananaLeft + (.5 * obs[i].dx) + "px";
@@ -202,11 +202,11 @@ function checkCollision(elem) {
     var obsX2 = obsX1 + parseInt(window.getComputedStyle(elem).getPropertyValue('width'), radix);
     var obsY1 = parseInt(window.getComputedStyle(elem).getPropertyValue('top'), radix);
     var obsY2 = obsY1 + parseInt(window.getComputedStyle(elem).getPropertyValue('height'), radix);
-    var carX1 = parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left'), radix);
-    var carWidth = parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('width'), radix);
+    var carX1 = getStyle(".car","left");
+    var carWidth = getStyle(".car","width");
     var carX2 = carX1 + carWidth;
-    var carY1 = parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('top'), radix);
-    var carY2 = carY1 + parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('height'), radix);
+    var carY1 = getStyle(".car","top");
+    var carY2 = carY1 + getStyle(".car","height");
     // console.log(obsX1, obsX2, obsY1, obsY2);
     // console.log(carX1, carX2, carY1, carY2);
     var collisiondX = (obsX1 - (carX1 + (1 / 2 * carWidth)));
