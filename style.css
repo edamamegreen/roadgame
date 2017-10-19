@@ -81,76 +81,41 @@ h2 {
 }
 
 .camera {
-	background-color: yellowgreen;	
+	background-color: yellowgreen;
+	width: 100%;
+	height: 470px;
+	position: relative;
 }
 
 .road {
-	background-color: dimgray;
-	background-image: 
-		linear-gradient(white,white),
-		linear-gradient(white,white),
-		linear-gradient(white,white),
-		linear-gradient(white,white),
-		linear-gradient(white,white),
-		linear-gradient(white,white),
-		linear-gradient(white,white);
-	background-size: 
-		5px 10%,
-		5px 10%,
-		5px 10%,
-		5px 10%,
-		5px 10%,
-		5px 10%,
-		5px 10%;
-	background-position: 
-		50% -20%,
-		50% 0%,
-		50% 20%,
-		50% 40%,
-		50% 60%,
-		50% 80%,
-		50% 100%;
-	background-repeat: no-repeat;
-	width: 80%;
-	margin: 0 auto;
-	height: 473px;
-	animation: dashing .5s linear infinite;
-}
-
-@keyframes dashing {
-	0% {background-position: 
-			50% -20%,
-			50% 0%,
-			50% 20%,
-			50% 40%,
-			50% 60%,
-			50% 80%,
-			50% 100%;
-	}
-
-
-
-	100% {
-		background-position:
-			50% 0%,
-			50% 20%,
-			50% 40%,
-			50% 60%,
-			50% 80%,
-			50% 100%,
-			50% 120%;
-	}
-}
-
-/*I figured out how to make the dashed centerline from this
-sample code: https://codepen.io/carpenumidium/pen/oBtja*/
-
-.road p {
-	text-align: center;
-	color: white;
-	background-color: rgba(255, 255, 255, .25);
-	padding: 5px;
 	position: relative;
+	background-color: dimgray;
+	width: 80%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.positionDash {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.dashes {
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.camera p {
+	position: absolute;
+	top: 100px;
+	width: 96%;
+	text-align: center;
+	color: dimgray;
+	background-color: rgba(255, 255, 255, .7);
+	padding: 15px 2%;
 	letter-spacing: .05em;
 }
 
@@ -160,7 +125,7 @@ sample code: https://codepen.io/carpenumidium/pen/oBtja*/
 	top: 70%;
 }
 
-.car > img {
+img.car {
 	height: 110px;
 }
 
@@ -187,18 +152,6 @@ sample code: https://codepen.io/carpenumidium/pen/oBtja*/
 	}
 }
 
-@keyframes moving {
-	0% {
-		top: 0%;
-	}
-
-
-
-	100% {
-		top: 100%;
-	}	
-}
-
 .road > p {
 	font-size: 1.2rem;
 }
@@ -220,7 +173,5 @@ sample code: https://codepen.io/carpenumidium/pen/oBtja*/
 }
 
 /*----------Objects-----------*/
-
-
 
 

@@ -18,10 +18,13 @@ var carLeftX;
 
 var gameWidth = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('width'), radix);
 
+
 // MOVE THE ROAD
+var offset = 0;
 
-function moveRoad() {
-
+function moveDash() {
+    offset -= 1;
+    document.querySelector('line').style.strokeDashoffset = offset;
 }
 
 // Helper function to get an element's exact position (from https://www.kirupa.com/html5/get_element_position_using_javascript.htm)
@@ -246,11 +249,11 @@ function pausePlay() {
     if (gameState.inPlay == "play") {
         console.log("Stop");
         stopGame();
-        document.querySelector('.road p').style.visibility = "visible";
+        document.querySelector('.camera p').style.visibility = "visible";
     } else {
         console.log("Start");
         playGame();
-        document.querySelector('.road p').style.visibility = "hidden";
+        document.querySelector('.camera p').style.visibility = "hidden";
     }
 }
 
@@ -263,7 +266,6 @@ function spaceBar(e) {
 
 var spacebarlistener = document.querySelector('body');
 spacebarlistener.addEventListener('keydown', spaceBar, false);
-
 
 // STEP GAME
 
@@ -279,6 +281,7 @@ function stepGame() {
     if (Key.isDown(Key.RIGHT)) {
         moveCarRight();
     }
+    moveDash();
 }
 
 
@@ -294,4 +297,7 @@ function printGameState() {
 }
 
 setInterval(stepGame, 20);
+
+
+
 
