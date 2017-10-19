@@ -16,8 +16,6 @@ var obstacleWidth = 30;
 var carLeftString;
 var carLeftX;
 
-var gameWidth = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('width'), radix);
-
 function getStyle (id, property) {
     var id = id;
     var property = property;
@@ -28,8 +26,9 @@ function getStyle (id, property) {
 var offset = 0;
 
 function moveDash() {
+    var line = document.querySelector('line')
     offset -= gameState.roadSpeed;
-    document.querySelector('line').style.strokeDashoffset = offset;
+    line.style.strokeDashoffset = offset;
 }
 
 // Helper function to get an element's exact position (from https://www.kirupa.com/html5/get_element_position_using_javascript.htm)
@@ -71,26 +70,17 @@ function updatePosition() {
 
 // MOVE THE CAR
 
-// get the numeric value of the left position of the car
-function calcLeftX() {
-    carLeftX = parseInt(carLeftString, radix);
-    // console.log(carLeftX);
-}
-
 // move the car by incrementing or decrementing the car's left position
 function moveCarLeft() {
-    carLeftString = window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left');
-    calcLeftX();
-    if (parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left'), radix) > 1) {
+    var carLeftX = getStyle(".car","left");
+    if (carLeftX > 1) {
         document.querySelector('.car').style.left = (carLeftX - distIncrement) + "px";
     }
 }
 
 function moveCarRight() {
-    carLeftString = window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left');
-    calcLeftX();
-    if ((parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('left'), radix)
-         + parseInt(window.getComputedStyle(document.querySelector('.car')).getPropertyValue('width'), radix)) < 400) {
+    var carLeftX = getStyle(".car","left");
+    if (carLeftX + getStyle(".car","width") < getStyle(".road","width")) {
 
         document.querySelector('.car').style.left = (carLeftX + distIncrement) + "px";
     }
@@ -121,7 +111,7 @@ keyListener.addEventListener('keydown', function(e) {Key.onKeydown(e);}, false);
 // OBSTACLES
 
 function makeBanana() {
-    this.posLeft = Math.round(Math.random() * gameWidth);
+    this.posLeft = Math.round(Math.random() * getStyle(".road","width"));
     this.speed = gameState.bananaSpeed;
     this.dx = 0;
     this.build = function () {
