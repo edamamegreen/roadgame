@@ -18,6 +18,11 @@ var carLeftX;
 
 var gameWidth = parseInt(window.getComputedStyle(document.querySelector('.road')).getPropertyValue('width'), radix);
 
+function getStyle (id, property) {
+    var id = id;
+    var property = property;
+    return parseInt(window.getComputedStyle(document.querySelector(id)).getPropertyValue(property), radix);
+}
 
 // MOVE THE ROAD
 var offset = 0;
