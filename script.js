@@ -174,17 +174,17 @@ function moveObstacles() {
             var bananaBottom = bananaTop + parseInt(window.getComputedStyle(obs[i]).getPropertyValue('height'), radix);
             var bananaLeft = parseInt(window.getComputedStyle(obs[i]).getPropertyValue('left'), radix);
             var bananaRight = bananaLeft + parseInt(window.getComputedStyle(obs[i]).getPropertyValue('width'), radix);
-            var roadTop = getPosition(document.querySelector('.camera')).y;
-            var roadBottom = roadTop + getStyle(".camera","height");
-            var roadLeft = getPosition(document.querySelector('.camera')).x;
-            var roadRight = getStyle(".camera","width") - 100;
+            var roadTop = getPosition(document.querySelector('.road')).y;
+            var roadBottom = roadTop + getStyle(".road","height");
+            var roadLeft = getPosition(document.querySelector('.road')).x;
+            var roadRight = getStyle(".road","width");
 
             obs[i].style.top = bananaTop - 10 + "px";
             obs[i].style.left = bananaLeft + (.5 * obs[i].dx) + "px";
-            // console.log("Obstacle: " + i + " Top: " + bananaTop + " Left: " + bananaLeft + " Dir: " + obs[i].dx);
+            console.log("Obstacle: " + i + " Top: " + bananaTop + " Left: " + bananaLeft + " Dir: " + obs[i].dx);
 
             if (((bananaTop < 0) ||
-                (bananaLeft < (-roadLeft)) ||
+                (bananaLeft < 0) ||
                 (bananaRight > roadRight) ||
                 (bananaBottom > roadBottom))) {
                     
@@ -244,11 +244,11 @@ function pausePlay() {
     if (gameState.inPlay == "play") {
         console.log("Stop");
         stopGame();
-        document.querySelector('.camera p').style.visibility = "visible";
+        document.querySelector('.road p').style.visibility = "visible";
     } else {
         console.log("Start");
         playGame();
-        document.querySelector('.camera p').style.visibility = "hidden";
+        document.querySelector('.road p').style.visibility = "hidden";
     }
 }
 
