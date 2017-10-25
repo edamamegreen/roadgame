@@ -62,6 +62,12 @@ h2 {
 	}
 }
 
+@media (max-width: 600px) {
+	.comments {
+		padding: 0 1rem;
+	}
+}
+
 .points-holder {
 	background-color: hsla(0, 1%, 15%, 1);
 	padding-left: 10px;
