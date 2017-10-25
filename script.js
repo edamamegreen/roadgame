@@ -96,9 +96,11 @@ var Key = {
         return this._pressed[keyCode];
     },
     onKeydown: function(e) {
+        e.preventDefault();
         this._pressed[e.keyCode] = true;
     },
     onKeyup: function(e) {
+        e.preventDefault();
         delete this._pressed[e.keyCode];
     }
 }
