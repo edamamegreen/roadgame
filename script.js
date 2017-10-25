@@ -6,8 +6,7 @@ var gameState = {
     carDamage: 0,
     obstacles: [], //should this be an array or a map?
     roadSpeed: 2,
-    bananaSpeed: 2,
-    points: 0
+    bananaSpeed: 2
 }
 var distIncrement = 10;
 var radix = 10;
@@ -178,12 +177,11 @@ function moveObstacles() {
             var bananaRight = bananaLeft + parseInt(window.getComputedStyle(obs[i]).getPropertyValue('width'), radix);
             var roadTop = getPosition(document.querySelector('.road')).y;
             var roadBottom = roadTop + getStyle(".road","height");
-            var roadLeft = getPosition(document.querySelector('.road')).x;
             var roadRight = getStyle(".road","width");
 
             obs[i].style.top = bananaTop - 10 + "px";
             obs[i].style.left = bananaLeft + (.5 * obs[i].dx) + "px";
-            console.log("Obstacle: " + i + " Top: " + bananaTop + " Left: " + bananaLeft + " Dir: " + obs[i].dx);
+            // console.log("Obstacle: " + i + " Top: " + bananaTop + " Left: " + bananaLeft + " Dir: " + obs[i].dx);
 
             if (((bananaTop < 0) ||
                 (bananaLeft < 0) ||
