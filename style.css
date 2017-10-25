@@ -169,12 +169,11 @@ img.car {
 	min-width: 90px;
 	min-height: 50px;
 	margin: .5rem;
+	text-align: center;
 }
 
 .startpause > p {
 	line-height: 25px;
-	text-align: center;
-
 }
 
 /*----------Objects-----------*/
