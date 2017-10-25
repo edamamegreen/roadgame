@@ -263,6 +263,11 @@ function spaceBar(e) {
 var spacebarlistener = document.querySelector('body');
 spacebarlistener.addEventListener('keydown', spaceBar, false);
 
+var leftListener = document.querySelector('.left');
+leftListener.addEventListener('touchend', moveCarLeft, false);
+var rightListener = document.querySelector('.right');
+rightListener.addEventListener('touchend', moveCarRight, false);
+
 // STEP GAME
 
 function stepGame() {
