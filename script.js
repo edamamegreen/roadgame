@@ -267,6 +267,8 @@ var leftListener = document.querySelector('.left');
 leftListener.addEventListener('touchend', moveCarLeft, false);
 var rightListener = document.querySelector('.right');
 rightListener.addEventListener('touchend', moveCarRight, false);
+var centerListener = document.querySelector('.startpause');
+centerListener.addEventListener('touchend', pausePlay, false);
 
 // STEP GAME
 

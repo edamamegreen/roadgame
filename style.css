@@ -153,14 +153,27 @@ img.car {
 	justify-content: space-between;
 	padding: 1rem 0;
 }
-.controls > div, .controls > div > p{
+.controls > div, .left, .right, .startpause{
 	display: inline;
+	line-height: 50px;
 }
 
 .controls > div > p {
+	padding: .5rem;
+	vertical-align: middle;
+}
+
+.left, .right, .startpause {
 	border: 1px solid hsla(0, 0%, 90%, 1);
+	min-width: 90px;
+	min-height: 50px;
 	margin: .5rem;
-	padding: .5rem 1.5rem;
+}
+
+.startpause > p {
+	line-height: 25px;
+	text-align: center;
+
 }
 
 /*----------Objects-----------*/
